@@ -5,4 +5,4 @@ This project has been migrated from sourceforge.net to github on February 26th, 
 
 ## Requirements
 
-icetools requires a functioning installation of the FEniCS project
+icetools requires a functioning installation of the [FEniCS project](https://fenicsproject.org/)
