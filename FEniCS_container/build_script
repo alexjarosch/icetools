@@ -1,0 +1,154 @@
+Bootstrap: debootstrap
+
+OSVersion: xenial
+
+MirrorURL:  http://de.archive.ubuntu.com/ubuntu/
+
+%post
+    # first things first
+    set -ex
+    apt-get -y update
+    apt-get -y upgrade
+
+    # apt-get the things we need
+    apt-get -y install cmake build-essential gfortran
+
+    ## add some sources
+    apt-get -y install software-properties-common
+    add-apt-repository universe
+    apt-get update
+
+    ## install Fenics
+    apt-get -y install apt-utils apt-file vim less gcc g++ make wget openssh-client
+    apt-get -y install openmpi-bin libopenmpi-dev infiniband-diags ibverbs-utils libibverbs-dev
+    apt-get -y install libcxgb3-1 libipathverbs1 libmlx4-1 libmlx5-1 libmthca1 libnes1
+
+    apt-get -y install libblas-dev liblapack-dev bison valgrind libpcre3-dev libeigen3-dev \
+     python-ply python-subprocess32 flex git
+
+    # fogort the boost libs
+    apt-get -y install libboost-atomic1.58-dev libboost-atomic1.58.0 libboost-chrono1.58-dev libboost-chrono1.58.0 \
+     libboost-date-time1.58-dev libboost-date-time1.58.0 libboost-dev libboost-filesystem1.58-dev libboost-filesystem1.58.0 \
+     libboost-iostreams1.58-dev libboost-iostreams1.58.0 libboost-math1.58-dev libboost-math1.58.0 libboost-mpi1.58-dev \
+     libboost-mpi1.58.0 libboost-program-options-dev libboost-program-options1.58-dev libboost-program-options1.58.0 \
+     libboost-regex1.58-dev libboost-regex1.58.0 libboost-serialization1.58-dev libboost-serialization1.58.0 \
+     libboost-system-dev libboost-system1.58-dev libboost-system1.58.0 libboost-thread-dev libboost-thread1.58-dev \
+     libboost-thread1.58.0 libboost-timer1.58-dev libboost-timer1.58.0 libboost1.58-dev
+
+    # don't forget hdf5 and zlib
+    apt-get -y install hdf5-helpers libhdf5-10 libhdf5-cpp-11 libhdf5-dev libhdf5-openmpi-10 libhdf5-openmpi-dev zlib1g \
+     zlib1g-dev
+
+    cd /software/src
+    wget http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.7.6.tar.gz
+    tar xf petsc-3.7.6.tar.gz
+
+    cd /software/src/petsc-3.7.6
+    export PETSC_ARCH=linux-gnu
+    ./configure --COPTFLAGS="-O2" --CXXOPTFLAGS="-O2" --FOPTFLAGS="-O2" --with-blas-lib=/usr/lib/libblas.a \
+     --with-lapack-lib=/usr/lib/liblapack.a --with-mpi=1 --with-c-support --with-debugging=0 --with-shared-libraries \
+     --download-suitesparse --download-scalapack --download-metis --download-parmetis --download-ptscotch \
+     --download-hypre --download-mumps --download-blacs --download-spai --download-ml --download-superlu_dist \
+     --prefix=/software
+
+    make PETSC_DIR=/software/src/petsc-3.7.6 PETSC_ARCH=linux-gnu MAKE_NP=6 all
+    make PETSC_DIR=/software/src/petsc-3.7.6 PETSC_ARCH=linux-gnu install
+
+    # export correct PETSC_DIR
+    export PETSC_DIR=/software
+    export PETSC_ARCH=""
+
+    cd /software/src
+    wget https://bitbucket.org/slepc/slepc/get/v3.7.3.tar.gz -O slepc-3.7.3.tar.gz
+    tar xf slepc-3.7.3.tar.gz
+    mv slepc-slepc-* slepc-3.7.3
+    cd /software/src/slepc-3.7.3
+    ./configure --prefix=/software
+    make SLEPC_DIR=$PWD PETSC_DIR=/software
+    make SLEPC_DIR=/software/src/slepc-3.7.3 PETSC_DIR=/software install
+
+    # export the correct SLEPC_DIR
+    export SLEPC_DIR=/software
+
+    cd
+    export LC_ALL=C
+    apt-get -y install python-pip
+    # no pip upgrade anymore, avoid else error later
+    # also fix the versions of sympy and matplotlib
+    # pip install --upgrade pip
+    pip2 install --no-cache-dir sympy==1.1.1
+    pip2 install --no-cache-dir matplotlib==2.1.0
+    pip2 install --no-cache-dir https://bitbucket.org/mpi4py/mpi4py/downloads/mpi4py-2.0.0.tar.gz
+    pip2 install --no-cache-dir https://bitbucket.org/petsc/petsc4py/downloads/petsc4py-3.7.0.tar.gz
+    pip2 install --no-cache-dir https://bitbucket.org/slepc/slepc4py/downloads/slepc4py-3.7.0.tar.gz
+
+    # fine until here
+
+    # add some packages defined by Michael Fink
+    apt-get -y install freeglut3-dev python-opengl python3-opengl
+
+    cd /software/src
+    wget http://downloads.sourceforge.net/swig/swig-3.0.12.tar.gz -O swig-3.0.12.tar.gz
+    tar xf swig-3.0.12.tar.gz
+    cd /software/src/swig-3.0.12
+    ./configure --prefix=/software
+    make
+    make install
+
+    cd /software/src
+    wget http://www.vtk.org/files/release/7.1/VTK-7.1.1.tar.gz
+    tar xf VTK-7.1.1.tar.gz
+    mkdir VTK-build
+    cd VTK-build
+    cmake ../VTK-7.1.1
+    make -j
+    make install
+
+    # snapshot-4
+
+    ### fenics
+    cd /software/src
+    git clone https://bitbucket.org/fenics-project/fiat.git
+    cd fiat
+    git checkout fiat-2016.2.0
+    pip install --prefix=/software --no-deps --upgrade .
+
+    cd /software/src
+    git clone https://bitbucket.org/fenics-project/dijitso.git
+    cd dijitso
+    git checkout dijitso-2016.2.0
+    pip install --prefix=/software --no-deps --upgrade .
+
+    cd /software/src
+    git clone https://bitbucket.org/fenics-project/instant.git
+    cd instant
+    git checkout instant-2016.2.0
+    pip install --prefix=/software --no-deps --upgrade .
+
+    cd /software/src
+    git clone https://bitbucket.org/fenics-project/ufl.git
+    cd ufl
+    git checkout ufl-2016.2.0
+    pip install --prefix=/software --no-deps --upgrade .
+
+    cd /software/src
+    git clone https://bitbucket.org/fenics-project/ffc.git
+    cd ffc
+    git checkout ffc-2016.2.0
+    pip install --prefix=/software --no-deps --upgrade .
+
+    cd /software/src
+    git clone https://bitbucket.org/fenics-project/dolfin.git
+    cd dolfin
+    git checkout dolfin-2016.2.0
+    cd /software/src
+    mkdir dolfin-build
+    cd dolfin-build
+    export PYTHONPATH=$PYTHONPATH:/software/lib/python2.7/site-packages:/software/src/dolfin/site-packages:/usr/local/lib/python2.7/site-packages
+    cmake -DCMAKE_INSTALL_PREFIX=/software ../dolfin
+    make
+    make install
+
+    # finalize the dolfin install
+    cd
+    cat /software/share/dolfin/dolfin.conf >> /.singularity.d/env/90-environment.sh
