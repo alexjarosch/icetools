@@ -6,13 +6,10 @@ This project has been migrated from sourceforge.net to github on February 26th, 
 ## Requirements
 
 icetools requires a functioning installation of the [FEniCS project](https://fenicsproject.org/).
-I recommend that you use the Docker container as described in the [FEniCS Install](https://fenicsproject.org/download/).
+I recommend you use my singularity container with FEniCS 1.6 installed.
+This setup is tested and works. Other versions of FEniCS are currently not supported.
 
-## Demo Run
+### Install singularity 2.6
 
-I assume you have a Docker installation now and the FEniCS Docker image installed as well.
-Now you can clone the icetools github repo with
-
-```bash
-git clone https://github.com/alexjarosch/icetools.git
-```
+Installation instructions for your system can be found [here](https://www.sylabs.io/guides/2.6/user-guide/installation.html).
+My container currently supports singularity version 2.6.
