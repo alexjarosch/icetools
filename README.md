@@ -17,11 +17,11 @@ My container currently supports singularity version 2.6.
 ### Building the container
 
 First you need to clone my repo to a directory of your liking.
-```bash
+```shell
 git clone https://github.com/alexjarosch/icetools.git
 ```
 Now you can build the singularity container with
-```bash
+```shell
 cd icetools/FEniCS_container
 sudo singularity build fenics_icetools.simg build_script
 ```

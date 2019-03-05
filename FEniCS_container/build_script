@@ -84,7 +84,7 @@ MirrorURL:  http://de.archive.ubuntu.com/ubuntu/
 
     # fine until here
 
-    # add some packages defined by Michael Fink
+    # add some packages
     apt-get -y install freeglut3-dev python-opengl python3-opengl
 
     cd /software/src
