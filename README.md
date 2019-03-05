@@ -26,3 +26,10 @@ cd icetools/FEniCS_container
 sudo singularity build fenics_icetools.simg build_script
 ```
 This will take a while, go get some coffee.
+When the container is done, the file `fenics_icetools.simg` will be created, which is the FEniCS_container
+
+## Running the examples
+
+### 2D Case
+
+To run the 2D case, first move to the `icetools` directory (maybe you need a `cd ..`).

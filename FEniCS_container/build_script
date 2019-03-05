@@ -39,6 +39,7 @@ MirrorURL:  http://de.archive.ubuntu.com/ubuntu/
     apt-get -y install hdf5-helpers libhdf5-10 libhdf5-cpp-11 libhdf5-dev libhdf5-openmpi-10 libhdf5-openmpi-dev zlib1g \
      zlib1g-dev
 
+    mkdir -p /software/src
     cd /software/src
     wget http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.7.6.tar.gz
     tar xf petsc-3.7.6.tar.gz
