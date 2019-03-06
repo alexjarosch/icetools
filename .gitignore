@@ -4,3 +4,4 @@
 # ignore model output
 *.vtu
 *.pvd
+*.pvtu
