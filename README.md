@@ -6,7 +6,7 @@ This project has been migrated from sourceforge.net to github on February 26th, 
 ### Initial development
 
 In 2008 the first version of icetools was released. This version was based on the
-(GetFEM++)[http://getfem.org/] library and its Matlab (R) interface.
+[GetFEM++](http://getfem.org/) library and its Matlab (R) interface.
 A corresponding publication was describing the initial tests and implementation:
 
 A. H. Jarosch, “Icetools: A full Stokes finite element model for glaciers”, Computers & Geosciences, Vol. 34, iss. 8, p. 1005-1014, 2008, doi: [10.1016/j.cageo.2007.06.012](http://dx.doi.org/10.1016/j.cageo.2007.06.012).
@@ -22,7 +22,7 @@ Here a brief and incomplete list of publications that have utilized icetools:
 * A. H. Jarosch, “Icetools: A full Stokes finite element model for glaciers”, Computers & Geosciences, Vol. 34, iss. 8, p. 1005-1014, 2008, doi: [10.1016/j.cageo.2007.06.012](http://dx.doi.org/10.1016/j.cageo.2007.06.012).
 
 Software projects utilize icetools:
-* [debadvect](https://github.com/awirbel/debadvect). 
+* [debadvect](https://github.com/awirbel/debadvect).
 
 ## Requirements
 
