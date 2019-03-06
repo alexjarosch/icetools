@@ -43,4 +43,4 @@ python icetools_2d_demo.py
 ```
 After the run is completed, you can visualize with [paraview](https://www.paraview.org/), as icetools is producing VTK files as output.
 The result for the velocity (stored in `velocity_2D.pvd`) should look like this:
-![2D Results](figs/2d_results.jpeg")
+![2D Results](https://github.com/alexjarosch/icetools/raw/master/figs/2d_result.jpeg "Velocity in 2D example")
