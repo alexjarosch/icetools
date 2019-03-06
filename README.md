@@ -3,6 +3,27 @@ icetools provides a development environment for numerical ice flow models/simula
 
 This project has been migrated from sourceforge.net to github on February 26th, 2019.
 
+### Initial development
+
+In 2008 the first version of icetools was released. This version was based on the
+(GetFEM++)[http://getfem.org/] library and its Matlab (R) interface.
+A corresponding publication was describing the initial tests and implementation:
+
+A. H. Jarosch, “Icetools: A full Stokes finite element model for glaciers”, Computers & Geosciences, Vol. 34, iss. 8, p. 1005-1014, 2008, doi: [10.1016/j.cageo.2007.06.012](http://dx.doi.org/10.1016/j.cageo.2007.06.012).
+
+Later on around 2010-2011 the code was migrated to utilize the FEniCS project.
+
+### Publications/Projects utilizing icetools
+
+Here a brief and incomplete list of publications that have utilized icetools:
+* A. Wirbel, A. H. Jarosch, and L. Nicholson, “Modelling debris transport within glaciers by advection in a full-Stokes ice flow model,” The Cryosphere, Vol. 12, Iss. 1, p. 189–204, 2018, doi: [10.5194/tc-12-189-2018](http://dx.doi.org/10.5194/tc-12-189-2018).
+* A. H. Jarosch and M. T. Gudmundsson, “A numerical model for meltwater channel evolution in glaciers,” The Cryosphere, Vol. 6, Iss. 2, p. 493–503, 2012, doi: [10.5194/tc-6-493-2012](http://dx.doi.org/10.5194/tc-6-493-2012).
+* A. H. Jarosch and M. T. Gudmundsson, “Numerical studies of ice flow over subglacial geothermal heat sources at Grímsvötn, Iceland, using Full Stokes equations,” Journal of Geophysical Research-Earth Surface, vol. 112, p. F02008, 2007, doi: [10.1029/2006JF000540](http://dx.doi.org/10.1029/2006JF000540).
+* A. H. Jarosch, “Icetools: A full Stokes finite element model for glaciers”, Computers & Geosciences, Vol. 34, iss. 8, p. 1005-1014, 2008, doi: [10.1016/j.cageo.2007.06.012](http://dx.doi.org/10.1016/j.cageo.2007.06.012).
+
+Software projects utilize icetools:
+* [debadvect](https://github.com/awirbel/debadvect). 
+
 ## Requirements
 
 icetools requires a functioning installation of the [FEniCS project](https://fenicsproject.org/).
@@ -30,8 +51,8 @@ When the container is done, the file `fenics_icetools.simg` will be created, whi
 
 ### Using the existing FEniCS_container
 
-If you not like to build the container or face troubles doing so, you can download the latest icetools release, which contains a pre-built container based on the current `build_script`.
-This container can also be used with the current development version of icetools.
+If you don't like to build the container or face troubles doing so, you can download a pre-built container based on the current `build_script` from the icetools 1.2.0 release [here](https://github.com/alexjarosch/icetools/releases).
+This container, called `fenics_icetools.simg`, can also be used with the current development version of icetools.
 
 ## Running the examples
 
