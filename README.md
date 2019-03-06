@@ -6,7 +6,7 @@ This project has been migrated from sourceforge.net to github on February 26th, 
 ## Requirements
 
 icetools requires a functioning installation of the [FEniCS project](https://fenicsproject.org/).
-I recommend you use my singularity container with FEniCS 1.6 installed.
+I recommend you use my singularity container with FEniCS 2016.2 installed.
 This setup is tested and works. Other versions of FEniCS are currently not supported.
 
 ### Install singularity 2.6
@@ -33,3 +33,14 @@ When the container is done, the file `fenics_icetools.simg` will be created, whi
 ### 2D Case
 
 To run the 2D case, first move to the `icetools` directory (maybe you need a `cd ..`).
+Now you can start a singularity container shell:
+```shell
+singularity shell FEniCS_container/fenics_icetools.simg
+```
+which will bring you inside the container. There you can run the 2D case:
+```shell
+python icetools_2d_demo.py
+```
+After the run is completed, you can visualize with [paraview](https://www.paraview.org/), as icetools is producing VTK files as output.
+The result for the velocity (stored in `velocity_2D.pvd`) should look like this:
+![2D Results](figs/2d_results.jpeg")

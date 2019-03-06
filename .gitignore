@@ -1,0 +1,6 @@
+# ignore the singularity image
+*.simg
+
+# ignore model output
+*.vtu
+*.pvd
