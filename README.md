@@ -51,7 +51,7 @@ When the container is done, the file `fenics_icetools.simg` will be created, whi
 
 ### Using the existing FEniCS_container
 
-If you don't like to build the container or face troubles doing so, you can download a pre-built container based on the current `build_script` from the icetools 1.2.0 release [here](https://github.com/alexjarosch/icetools/releases).
+If you don't like to build the container or face troubles doing so, you can download a pre-built container based on the current `build_script` from the icetools 1.3.0 release [here](https://github.com/alexjarosch/icetools/releases).
 This container, called `fenics_icetools.simg`, can also be used with the current development version of icetools.
 
 ## Running the examples
@@ -61,7 +61,7 @@ This container, called `fenics_icetools.simg`, can also be used with the current
 To run the 2D case, first move to the `icetools` directory (maybe you need a `cd ..`).
 Now you can start the 2D case right within the singularity container:
 ```shell
-singularity exec FEniCS_container/fenics_icetools.simg python icetools_2d_demo.py
+singularity exec FEniCS_container/fenics_icetools.simg python3 icetools_2d_demo.py
 ```
 which will run `python icetools_2d_demo.py` inside the container and place output in your local directory. Consult the singularity documentation to learn more on working with this type of container environment.
 
@@ -76,11 +76,11 @@ The 3D case is executed similarly to the 2D case. As this case has a bigger mesh
 
 Using just a single core you can run:
 ```shell
-singularity exec FEniCS_container/fenics_icetools.simg python icetools_3d_demo.py
+singularity exec FEniCS_container/fenics_icetools.simg python3 icetools_3d_demo.py
 ```
 However if you would like to use 6 cores you can utilize mpirun:
 ```shell
-singularity exec FEniCS_container/fenics_icetools.simg mpirun -np 6 python icetools_3d_demo.py
+singularity exec FEniCS_container/fenics_icetools.simg mpirun -np 6 python3 icetools_3d_demo.py
 ```
 After the run is completed, you can agian visualize with [paraview](https://www.paraview.org/) and the 3D velocity should look like this:
 ![3D Results](https://github.com/alexjarosch/icetools/raw/master/figs/3d_result.jpeg "Velocity in 3D example")
