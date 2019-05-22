@@ -1,7 +1,7 @@
 """A 2D demo of the icetools code"""
 
 __author__ = "Alexander H. Jarosch (research@alexj.at)"
-__date__ = "2010-06-09 -- 2019-03-15"
+__date__ = "2010-06-09 -- 2019-05-22"
 __copyright__ = "Copyright (C) 2015 Alexander H. Jarosch"
 __license__ = "GNU GPL Version 3"
 __version__ = "1.2"
@@ -21,7 +21,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with icetools.  If not, see <http://www.gnu.org/licenses/>."""
 
-from dolfin import *
+from fenics import *
+import ufl
 
 parameters["form_compiler"]["quadrature_degree"] = 2
 
@@ -94,7 +95,7 @@ pde = NonlinearVariationalProblem(F, w, bcs, dF)
 solver = NonlinearVariationalSolver(pde)
 solver.parameters["symmetric"] = True
 solver.parameters["newton_solver"]["maximum_iterations"] = 5
-solver.parameters["newton_solver"]["linear_solver"] = 'superlu_dist'
+solver.parameters["newton_solver"]["linear_solver"] = 'mumps'
 solver.solve()
 
 
@@ -104,7 +105,7 @@ def visc(u):
     eps_dot = sqrt(0.5*inner(sym(grad(u)), sym(grad(u))))
     nu_out = glen_fact * eps_dot**((1.0 - nglen)/nglen)
 #     return nu_out
-    return Min(nu_out, 2e15)    # would introduce a viscosity limit
+    return ufl.Min(nu_out, 2e15)    # would introduce a viscosity limit
 
 
 nu = visc(u)
@@ -120,7 +121,7 @@ solver.parameters["newton_solver"]["maximum_iterations"] = 80
 solver.parameters["newton_solver"]["error_on_nonconvergence"] = False
 solver.parameters["newton_solver"]["relaxation_parameter"] = 0.6
 solver.parameters["newton_solver"]["relative_tolerance"] = 1E-4
-solver.parameters["newton_solver"]["linear_solver"] = 'superlu_dist'
+solver.parameters["newton_solver"]["linear_solver"] = 'mumps'
 solver.solve()
 
 (u, p) = w.split(deepcopy=True)
