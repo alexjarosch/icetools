@@ -10,9 +10,13 @@ MirrorURL:  http://de.archive.ubuntu.com/ubuntu/
     apt-get -y update
     apt-get -y upgrade
 
-    ## add some sources
+    # add some sources
     apt-get -y install software-properties-common
     add-apt-repository universe
+
+    #add build-essential, needed for some systems
+    apt-get -y install build-essential
+
 
     # add fenics
     add-apt-repository ppa:fenics-packages/fenics
